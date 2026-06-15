@@ -1,4 +1,3 @@
-import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { toggleTempUnit, toggleSpeedUnit } from '../store/weatherSlice';
 
@@ -7,29 +6,31 @@ const WeatherCard = () => {
   const dispatch = useDispatch();
 
   return (
-    <div style={{ border: '1px solid #ccc', padding: '1rem', width: '300px' }}>
-      <h2>🌤 Поточна погода</h2>
+    <article className="card">
+      <header>
+        <h2>Поточна погода</h2>
+      </header>
       
-      <div style={{ marginBottom: '1rem' }}>
-        <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-          Температура: {weather.temperature}° 
+      <section className="weather-section">
+        <p className="metric-text">
+          Температура: {Math.round(weather.temperature)}° 
           {weather.tempUnit === 'celsius' ? 'C' : 'F'}
         </p>
-        <button onClick={() => dispatch(toggleTempUnit())}>
+        <button className="action-btn" onClick={() => dispatch(toggleTempUnit())}>
           Змінити на {weather.tempUnit === 'celsius' ? 'Фаренгейти' : 'Цельсії'}
         </button>
-      </div>
+      </section>
 
-      <div>
-        <p style={{ fontSize: '1.2rem', fontWeight: 'bold' }}>
-          Швидкість вітру: {weather.windSpeed} 
+      <section className="weather-section">
+        <p className="metric-text">
+          Швидкість вітру: {Math.round(weather.windSpeed)} 
           {weather.speedUnit === 'kmh' ? ' км/год' : ' м/с'}
         </p>
-        <button onClick={() => dispatch(toggleSpeedUnit())}>
+        <button className="action-btn" onClick={() => dispatch(toggleSpeedUnit())}>
           Змінити на {weather.speedUnit === 'kmh' ? 'м/с' : 'км/год'}
         </button>
-      </div>
-    </div>
+      </section>
+    </article>
   );
 };
 

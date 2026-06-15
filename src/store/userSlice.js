@@ -11,7 +11,6 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
-    // RTK дозволяє "мутувати" стан безпосередньо завдяки бібліотеці Immer під капотом
     toggleFavourite: (state) => {
       state.isFavourite = !state.isFavourite;
     },
