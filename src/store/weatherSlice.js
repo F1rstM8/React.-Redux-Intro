@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { TEMP_RATIO, TEMP_OFFSET, SPEED_CONVERSION_FACTOR } from '../utils/constants';
+import { TEMP_RATIO, TEMP_OFFSET, SPEED_CONVERSION_FACTOR, UNITS } from '../utils/constants';
 
 const initialState = {
   temperature: 10,
   windSpeed: 36,
-  tempUnit: 'celsius',
-  speedUnit: 'kmh',
+  tempUnit: UNITS.CELSIUS, 
+  speedUnit: UNITS.KMH,    
 };
 
 const weatherSlice = createSlice({
@@ -13,21 +13,23 @@ const weatherSlice = createSlice({
   initialState,
   reducers: {
     toggleTempUnit: (state) => {
-      if (state.tempUnit === 'celsius') {
+      
+      if (state.tempUnit === UNITS.CELSIUS) {
         state.temperature = state.temperature * TEMP_RATIO + TEMP_OFFSET;
-        state.tempUnit = 'fahrenheit';
-      } else if (state.tempUnit === 'fahrenheit') {
+        state.tempUnit = UNITS.FAHRENHEIT;
+      } else if (state.tempUnit === UNITS.FAHRENHEIT) {
         state.temperature = (state.temperature - TEMP_OFFSET) / TEMP_RATIO;
-        state.tempUnit = 'celsius';
+        state.tempUnit = UNITS.CELSIUS;
       }
     },
     toggleSpeedUnit: (state) => {
-      if (state.speedUnit === 'kmh') {
+   
+      if (state.speedUnit === UNITS.KMH) {
         state.windSpeed = state.windSpeed / SPEED_CONVERSION_FACTOR;
-        state.speedUnit = 'ms';
-      } else if (state.speedUnit === 'ms') {
+        state.speedUnit = UNITS.MS;
+      } else if (state.speedUnit === UNITS.MS) {
         state.windSpeed = state.windSpeed * SPEED_CONVERSION_FACTOR;
-        state.speedUnit = 'kmh';
+        state.speedUnit = UNITS.KMH;
       }
     },
   },
