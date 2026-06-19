@@ -1,6 +1,6 @@
-import UserCard from './components/UserCard';
-import WeatherCard from './components/WeatherCard';
-import './styles/App.css';
+import UserCard from "./components/UserCard";
+import WeatherCard from "./components/WeatherCard";
+import "./styles/App.css";
 
 function App() {
   return (

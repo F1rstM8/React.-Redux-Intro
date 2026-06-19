@@ -2,9 +2,37 @@ import { useSelector, useDispatch } from "react-redux";
 import { toggleTempUnit, toggleSpeedUnit } from "../store/weatherSlice";
 import { UNITS } from "../utils/constants";
 
+
+const TEMP_UNIT_LABELS = {
+  [UNITS.CELSIUS]: "C",
+  [UNITS.FAHRENHEIT]: "F",
+};
+
+const SPEED_UNIT_LABELS = {
+  [UNITS.KMH]: " км/год",
+  [UNITS.MS]: " м/с",
+};
+
+const TEMP_BTN_LABELS = {
+  [UNITS.CELSIUS]: "Фаренгейти",
+  [UNITS.FAHRENHEIT]: "Цельсії",
+};
+
+const SPEED_BTN_LABELS = {
+  [UNITS.KMH]: "м/с",
+  [UNITS.MS]: "км/год",
+};
+
 const WeatherCard = () => {
   const weather = useSelector((state) => state.weather);
   const dispatch = useDispatch();
+
+
+  const tempLabel = TEMP_UNIT_LABELS[weather.tempUnit] || "";
+  const tempBtnText = TEMP_BTN_LABELS[weather.tempUnit] || "іншу одиницю";
+  
+  const speedLabel = SPEED_UNIT_LABELS[weather.speedUnit] || "";
+  const speedBtnText = SPEED_BTN_LABELS[weather.speedUnit] || "іншу одиницю";
 
   return (
     <article className="card">
@@ -14,28 +42,25 @@ const WeatherCard = () => {
 
       <section className="weather-section">
         <p className="metric-text">
-          Температура: {Math.round(weather.temperature)}°
-          {weather.tempUnit === UNITS.CELSIUS ? "C" : "F"}
+          Температура: {Math.round(weather.temperature)}°{tempLabel}
         </p>
         <button
           className="action-btn"
           onClick={() => dispatch(toggleTempUnit())}
         >
-          Змінити на{" "}
-          {weather.tempUnit === UNITS.CELSIUS ? "Фаренгейти" : "Цельсії"}
+          Змінити на {tempBtnText}
         </button>
       </section>
 
       <section className="weather-section">
         <p className="metric-text">
-          Швидкість вітру: {Math.round(weather.windSpeed)}
-          {weather.speedUnit === UNITS.KMH ? " км/год" : " м/с"}
+          Швидкість вітру: {Math.round(weather.windSpeed)}{speedLabel}
         </p>
         <button
           className="action-btn"
           onClick={() => dispatch(toggleSpeedUnit())}
         >
-          Змінити на {weather.speedUnit === UNITS.KMH ? "м/с" : "км/год"}
+          Змінити на {speedBtnText}
         </button>
       </section>
     </article>
